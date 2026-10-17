@@ -1,0 +1,35 @@
+# Por defecto se excluye TODO el contenido de estas carpetas (quedan vacias en
+# la imagen salvo lo re-incluido explicitamente mas abajo con "!"), para no
+# hornear archivos que segmentation/config.py no lee.
+# Nota: solo se puede usar "!" para re-incluir un archivo si el patron de
+# exclusion de la carpeta es "/Carpeta/*" (contenido) y no "/Carpeta/" (la
+# carpeta misma) - Docker no permite des-ignorar dentro de un directorio ya
+# ignorado por completo.
+/data/raw/*
+/data/interim/*
+/data/external/*
+/data/processed/*
+!/data/processed/identificaciones_ced.parquet
+!/data/processed/identificaciones_ruc.parquet
+!/data/external/ecuador.geojson
+!/data/external/CatSegmentosWork.parquet
+!/data/interim/compras.parquet
+!/data/interim/postventa.parquet
+
+# Respaldo de datos originales sin anonimizar (PII real) - nunca a la imagen.
+/backup/
+
+# Nunca copiar secretos a la imagen - se inyectan en runtime via env_file.
+app/.env
+.env
+
+# Basura de desarrollo.
+**/__pycache__/
+**/*.pyc
+*.egg-info/
+build/
+dist/
+.venv/
+.git/
+.gitignore
+.vscode/

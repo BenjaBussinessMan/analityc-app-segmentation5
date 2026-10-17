@@ -1,0 +1,12 @@
+[project]
+name = "segmentation"
+version = "0.1.0"
+description = "Carga, limpieza y perfilamiento de clientes (CED/RUC) compartido por la app y el pipeline de datos."
+requires-python = ">=3.12"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"

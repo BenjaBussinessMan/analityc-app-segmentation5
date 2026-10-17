@@ -1,0 +1,30 @@
+# Secretos
+.env
+app/.env
+
+# Respaldo de datos originales sin anonimizar (PII real) - jamas versionar
+/backup/
+
+# Datos con PII o generados — NO se versionan
+/data/raw/*
+/data/interim/*
+/data/processed/*
+!/data/raw/.gitkeep
+!/data/interim/.gitkeep
+!/data/processed/.gitkeep
+
+# data/external SI se versiona (catalogos/geojson de referencia, sin PII) —
+# no se ignora en bloque; si algun archivo ahi resulta pesado/no deseado se
+# agrega una excepcion puntual aqui.
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+.venv/
+
+# OS/editor
+.DS_Store
+Thumbs.db

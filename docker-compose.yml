@@ -1,0 +1,28 @@
+services:
+  dashboard:
+    build: .
+    image: analytic-dashboard-marcas:latest
+    container_name: analytic-dashboard-marcas
+    ports:
+      - "8501:8501"
+    env_file:
+      - app/.env
+    volumes:
+      # La imagen ya trae horneados los archivos de datos que segmentation/config.py
+      # lee (ver Dockerfile). Estos montajes son solo para desarrollo LOCAL:
+      # sobrescriben esos archivos con tu copia mas reciente en disco sin tener que
+      # reconstruir la imagen. Si despliegas a un servicio que no soporta volumenes
+      # (Render, Railway...) simplemente no aplican y la app usa igual los datos
+      # horneados.
+      - ./data/processed:/app/data/processed:ro
+      - ./data/external:/app/data/external:ro
+      - ./data/raw:/app/data/raw:ro
+      - ./data/interim:/app/data/interim:ro
+      # Cache en disco de los insights de IA (ia_buyer_persona._generar_ia_cacheado)
+      # vive en ~/.streamlit/cache; se monta para que sobreviva reinicios del
+      # contenedor y no se re-facture la API por la misma combinacion marca/modelo.
+      - dashboard-cache:/root/.streamlit
+    restart: unless-stopped
+
+volumes:
+  dashboard-cache:
